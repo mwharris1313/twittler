@@ -8,9 +8,7 @@ $(document).ready(function(){
 	var billyTweet = function() { makeTweet( 'billy', msg[Math.floor(Math.random()*10)] ); };
 	setInterval(billyTweet, 2000);
 
-	//setInterval(checkTweets, 1000, 10, 'billy', true);
 	setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:true});
-	//setInterval(checkTweets, 1000, 20);
 
 });
 
