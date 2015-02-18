@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+	setInterval(showLength, 3000);
+
+});
+
+function showLength(){
+	console.log(streams.home.length);
+}
+
+function checkTweets(){
 	var body = $('body');
 	var tweetBox = $('.tweetBox');
 
@@ -11,5 +20,4 @@ $(document).ready(function(){
 		tag.appendTo(tweetBox);
 
 	}
-
-});
+}
