@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-	setInterval(showLength, 3000);
+	var testArg = "helloWorld";
+	checkTweets(testArg);
+	setInterval(checkTweets, 1000, testArg);
 
 });
 
@@ -8,15 +10,20 @@ function showLength(){
 	console.log(streams.home.length);
 }
 
-function checkTweets(){
+function checkTweets(msg){
+	console.log(arguments[0]);
+
 	var body = $('body');
 	var tweetBox = $('.tweetBox');
+	tweetBox.html('');
 
-	for (var i=0; i<streams.home.length; i++){
+	var numTweets = 10;
+	var len = streams.home.length;
+	for (var i = len-1; i >= (len-numTweets); i--){
 
 		var tweet = streams.home[i];
 		var tag = $('<div></div>');
-		tag.text('@' + tweet.user + ': ' + tweet.message);
+		tag.text(tweet.created_at +  ' @' + tweet.user + ': ' + tweet.message);
 		tag.appendTo(tweetBox);
 
 	}
