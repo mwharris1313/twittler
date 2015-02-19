@@ -3,7 +3,6 @@ var log = console.log.bind(console);
 streams.users['billy'] = [];
 
 $(document).ready(function(){
-
 	var msg = ['j0','a1','b2','c3','d4','e5','f6','g7','h8','i9'];
 	var billyTweet = function() { makeTweet( 'billy', msg[Math.floor(Math.random()*10)] ); };
 	setInterval(billyTweet, 2000);
