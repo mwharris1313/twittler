@@ -1,13 +1,56 @@
 body {
+	margin: 0px;
+	padding: 0px;
 }
 
-.tweetBox {
-	border-color: black;
-	padding: 10px 0 0 10px;
-	margin: 0px;
+.container {
+    display: block;
 	width: 640px;
-	height: 480px;
-	background-color: gray;
+	height: auto;
+    margin: 0 auto 0 auto;
+    padding: 0 0 0 0;
+}
+
+/* **************************************** */
+.fixed {
+	position: fixed;
+	top: 0px;
+    display: block;
+	width: 640px;
+	height: 200px;
+    margin: 0 auto 0 auto;
+    padding: 10px auto 10px auto;
+    background-color:gray;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+}
+
+.headLeft {
+
+}
+
+.headRight {
+
+}
+
+.content {
+	margin: auto;
+	padding: auto auto 10px auto;
+    overflow: hidden;
+}
+/* **************************************** */
+
+
+/* **************************************** */
+
+
+.scroll {
+    margin: 210px 0 0 0;
+	padding: 10px 10px 10px 10px;
+
+    background-color:gray;
+    border-radius: 10px 10px 10px 10px;
+
 	font-color: black;
 	font-size: 11px;
 	font-family: arial;

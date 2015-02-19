@@ -9,7 +9,7 @@ $(document).ready(function(){
 	setInterval(billyTweet, 2000);
 
 	//setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:true});
-	setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:false});
+	//setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:false});
 
 });
 
@@ -19,7 +19,7 @@ var checkTweets = function(args){
 	var isTimeFriendly	= args.isTimeFriendly;
 
 	var body = $('body');
-	var tweetBox = $('.tweetBox');
+	var tweetBox = $('.scroll');
 	tweetBox.html('');
 
 	var tweets = !user ? streams.home :
@@ -28,7 +28,6 @@ var checkTweets = function(args){
 	var len = tweets.length;
 	var maxTweets = len < amount ? len : amount;
 
-	//var now = (new Date).getTime();
 	for (var i = len-1; i >= (len-maxTweets); i--){
 
 		var tweet = tweets[i];
