@@ -46,7 +46,10 @@ var checkTweets = function(args){
 				dateToFull(tweet.created_at);
 
 			var tag = $('<div class="segment"></div>');
-			tag.text(createdAt +  ' @' + tweet.user + ': ' + tweet.message);
+			var left = '<span class="segLeft">'+createdAt+'</span>';
+			var middle = '<span class="segMiddle">'+' @' + tweet.user+': </span>';
+			var right = '<span class="segRight">'+tweet.message+'</span>';
+			tag.html(left+middle+right);
 			tag.appendTo(segmentWrapper);
 		}
 

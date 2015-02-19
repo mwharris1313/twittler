@@ -81,12 +81,21 @@ body {
 	right: 0px;
 	margin: 10px;
 	overflow:scroll;
-	background-color: blue;
 }
 
 .segment {
 	margin: 10px;
-	background-color: blue;
 	white-space: nowrap;
 	overflow: hidden;
+}
+
+.segLeft {
+	color: black;
+}
+.segMiddle {
+	color: blue;
+}
+.segRight {
+	color: green;
+	font-weight: bold;
 }
