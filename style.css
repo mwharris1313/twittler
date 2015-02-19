@@ -72,7 +72,11 @@ body {
     overflow: scroll;
 }
 
+.segmentWrapper{
+	margin: 10px;
+}
+
 .segment {
-	margin: 20px;
+	margin: 0;
 	background-color: blue;
 }
