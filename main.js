@@ -8,7 +8,8 @@ $(document).ready(function(){
 	var billyTweet = function() { makeTweet( 'billy', msg[Math.floor(Math.random()*10)] ); };
 	setInterval(billyTweet, 2000);
 
-	setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:true});
+	//setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:true});
+	setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:false});
 
 });
 
@@ -27,11 +28,12 @@ var checkTweets = function(args){
 	var len = tweets.length;
 	var maxTweets = len < amount ? len : amount;
 
-	var now = (new Date).getTime();
+	//var now = (new Date).getTime();
 	for (var i = len-1; i >= (len-maxTweets); i--){
 
 		var tweet = tweets[i];
-		var createdAt = isTimeFriendly ? dateToFriendly(tweet.created_at) : tweet.created_at;
+		var createdAt = isTimeFriendly ? dateToFriendly(tweet.created_at) : 
+			dateToFull(tweet.created_at);
 
 		var tag = $('<div></div>');
 		tag.text(createdAt +  ' @' + tweet.user + ': ' + tweet.message);
@@ -48,8 +50,17 @@ var makeTweet = function(user, message){
 	addTweet(tweet);
 };
 
+var dateToFull = function(date){
+	var now = new Date();
+	var d = date.toString().split(' ');
+	var monthDayTime = d[1]+' '+d[2]+' '+d[4];
+	var monthDayYearTime = d[1]+' '+d[2]+' '+d[3]+' '+d[4];
+	var s = date.getFullYear() === now.getFullYear() ? monthDayTime : monthDayYearTime;
+	return s;
+}
+
 var dateToFriendly = function(date){
-	var s,m,h,d,m,y;
+	var s,m,h,d,mn,y; // second, minute, hour, day, month, and year in milliseconds
 	s = 1000;
 	m = 60000;
 	h = 3600000;
@@ -63,18 +74,17 @@ var dateToFriendly = function(date){
 	var ms = now - then;
 
 
-	if (ms < s)		return 'now';
-	if (ms < 2*s)	return '1 second ago';
-	if (ms < m)		return Math.floor(ms/s) + ' seconds ago';
-	if (ms < 2*m)	return '1 minute ago';
-	if (ms < h)		return Math.floor(ms/m) + ' minutes ago';
-	if (ms < 2*h)	return '1 hour ago';
-	if (ms < d )	return Math.floor(ms/h) + ' hours ago';
-	if (ms < 2*d)	return '1 day ago';
-	if (ms < mn )	return Math.floor(ms/d) + ' days ago';
-	if (ms < 2*mn)	return '1 month ago';
-	if (ms < y )	return Math.floor(ms/mn) + ' months ago';
-	if (ms < 2*y)	return '1 year ago';
-					return Math.floor(ms/y) + ' years ago';
+	if (ms < 2*s)	return '1 second';
+	if (ms < m)		return Math.floor(ms/s) + ' seconds';
+	if (ms < 2*m)	return '1 minute';
+	if (ms < h)		return Math.floor(ms/m) + ' minutes';
+	if (ms < 2*h)	return '1 hour';
+	if (ms < d )	return Math.floor(ms/h) + ' hours';
+	if (ms < 2*d)	return '1 day';
+	if (ms < mn )	return Math.floor(ms/d) + ' days';
+	if (ms < 2*mn)	return '1 month';
+	if (ms < y )	return Math.floor(ms/mn) + ' months';
+	if (ms < 2*y)	return '1 year';
+					return Math.floor(ms/y) + ' years';
 
 }
