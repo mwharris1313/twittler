@@ -19,11 +19,11 @@ body {
 }
 
 /* **************************************** */
-.green {
+.play {
 	color: rgb(100,100,255);
 }
 
-.red {
+.pause {
 	color: rgb(200,120,120);
 }
 
@@ -76,6 +76,8 @@ body {
 	width: 80px;
 	font-size:26px;
 	border-radius:inherit;
+	color: rgb(100,100,255);
+	outline:none;
 }
 	
 .headLeft {
@@ -88,8 +90,7 @@ body {
 	float: right;
 	font-size:28px;
 	border-radius:inherit;
-
-/*	background-color:blue;*/
+	outline:none;
 }
 
 .content {

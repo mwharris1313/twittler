@@ -18,16 +18,16 @@ $(document).ready(function(){
 
 	var play = function(){
 			$('.headRight').text('PAUSE');
-			$('.headRight').removeClass('green');
-			$('.headRight').addClass('red');
+			$('.headRight').removeClass('play');
+			$('.headRight').addClass('pause');
 			g.isPaused = false;
 			checkPosts();		
 	}
 	var pause = function(){
 			$('.headRight').text('PLAY');
-			$('.headRight').removeClass('red');
-			$('.headRight').addClass('green');
-			g.isPaused = true;	
+			$('.headRight').removeClass('pause');
+			$('.headRight').addClass('play');
+			g.isPaused = true;
 	}
 
 	$('.headRight').on('click', function(){ g.isPaused ? play() : pause(); });
@@ -39,15 +39,17 @@ $(document).ready(function(){
 		var message = $('.postInput').val();
 		makePost(g.user, message);
 		$('.postInput').val('');
-		//g.currentUser = g.user;
+		var tempUser = g.currentUser;
+		g.currentUser = g.user;
 		play();
+		_.delay(function(){g.currentUser = tempUser}, 3000);
+
 	}
 
 	$('.postButton').on('click', postIt);
 	$('.postInput').keypress(function (e) {
 		if (e.which == 13) {
 			postIt();
-			play();
 		} 
 	});
 
