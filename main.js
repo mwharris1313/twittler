@@ -4,15 +4,17 @@ streams.users['billy'] = [];
 var g = {};
 g.isPaused = false;
 g.currentUser = null;
-g.isFriendly = false;
+g.isTimeFriendly = false;
+g.checkInterval = 5000;
 
 $(document).ready(function(){
 	var msg = ['a1','b2','c3','d4','e5','f6','g7','h8','i9','j10'];
 	var billyPost = function() { makePost( 'billy', msg[Math.floor(Math.random()*10)] ); };
 	setInterval(billyPost, 3000);
 
+	checkPosts();
 	//setInterval(checkTweets, 1000, {user:'billy', isTimeFriendly:true});
-	setInterval(checkMessages, 2000, {user:'billy', isTimeFriendly:false});
+	setInterval(checkPosts, g.checkInterval, {user:'billy', isTimeFriendly:false});
 
 	$('.headRight').on('click', function(){
 		g.isPaused = !g.isPaused;
@@ -31,34 +33,34 @@ $(document).ready(function(){
 			g.isPaused = false;
 			g.currentUser = g.currentUser ? null : 
 				e.target.innerHTML.split(':')[0].split('@')[1];
+			checkPosts();
 		};
 		if (thisClass === 'segRight') test = 'right';
 	});
 });
 
-var checkMessages = function(args){
+var checkPosts = function(args){
 	if (!g.isPaused){	
 
-		var amount 			= args.amount;
-		var user			= g.currentUser || args.users;
-		var isTimeFriendly	= args.isTimeFriendly;
 
 		var body = $('body');
 		var segmentWrapper = $('.segmentWrapper');
 		segmentWrapper.html('');
 
-		var posts = !user ? streams.home :
-			_.filter(streams.home, function(item){ return item.user === user; });
+		var posts = !g.currentUser ? streams.home :
+			_.filter(streams.home, function(item){ return item.user === g.currentUser; });
 
-		if (!g.currentUser) {
-
-		}
+		var activePost = posts[posts.length-1];
+		$('.headLeft').html('');
+		$('.headLeft').html('@'+activePost.user);
+		$('.content').html('');
+		$('.content').html(activePost.message);
 
 
 		for (var i = posts.length-1; i >= 0; i--){
 
 			var post = posts[i];
-			var createdAt = isTimeFriendly ? dateToFriendly(post.created_at) : 
+			var createdAt = g.isTimeFriendly ? dateToFriendly(post.created_at) : 
 				dateToFull(post.created_at);
 
 			var tag = $('<div class="segment"></div>');
