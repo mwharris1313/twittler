@@ -47,20 +47,24 @@ var checkMessages = function(args){
 		var segmentWrapper = $('.segmentWrapper');
 		segmentWrapper.html('');
 
-		var messages = !user ? streams.home :
+		var posts = !user ? streams.home :
 			_.filter(streams.home, function(item){ return item.user === user; });
 
+		if (!g.currentUser) {
 
-		for (var i = messages.length-1; i >= 0; i--){
+		}
 
-			var message = messages[i];
-			var createdAt = isTimeFriendly ? dateToFriendly(message.created_at) : 
-				dateToFull(message.created_at);
+
+		for (var i = posts.length-1; i >= 0; i--){
+
+			var post = posts[i];
+			var createdAt = isTimeFriendly ? dateToFriendly(post.created_at) : 
+				dateToFull(post.created_at);
 
 			var tag = $('<div class="segment"></div>');
 			var left = '<span class="segLeft">'+createdAt+'</span>';
-			var middle = '<span class="segMiddle">'+' @' + message.user+': </span>';
-			var right = '<span class="segRight">'+message.message+'</span>';
+			var middle = '<span class="segMiddle">'+' @' + post.user+': </span>';
+			var right = '<span class="segRight">'+post.message+'</span>';
 			tag.html(left+middle+right);
 			tag.appendTo(segmentWrapper);
 		}
@@ -68,10 +72,10 @@ var checkMessages = function(args){
 	}
 }
 
-var makePost = function(fUser, fPost){
+var makePost = function(user, message){
 	var post = {};
-	post.user = fUser;
-	post.message = fPost;
+	post.user = user;
+	post.message = message;
 	post.created_at = new Date();
 	addTweet(post);
 };
