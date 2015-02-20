@@ -20,11 +20,11 @@ body {
 
 /* **************************************** */
 .green {
-	color: darkgreen;
+	color: rgb(100,100,255);
 }
 
 .red {
-	color: darkred;
+	color: rgb(200,120,120);
 }
 
 /* **************************************** */
@@ -45,6 +45,7 @@ body {
 .header{
 	padding: 10px;
 	font-size:40px;
+	border-radius:10px;
 }
 
 .footer{
@@ -58,7 +59,7 @@ body {
 	bottom: 0px;
 	margin: 0px;
 	width:960px;
-	border-radius:10px;
+	border-radius:inherit;
 }
 .postInput{
 	position: absolute;
@@ -85,6 +86,9 @@ body {
 
 .headRight {
 	float: right;
+	font-size:28px;
+	border-radius:inherit;
+
 /*	background-color:blue;*/
 }
 

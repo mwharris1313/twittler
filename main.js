@@ -14,21 +14,8 @@ $(document).ready(function(){
 	setInterval(checkPosts, g.checkInterval);
 
 	// --------------------------------------------------------
-	var postIt = function(){
-		var message = $('.postInput').val();
-		makePost(g.user, message);
-		$('.postInput').val('');
-		//g.currentUser = g.user;
-		checkPosts();
-	}
+	// PAUSE/PLAY click event
 
-	// user's post event , button click or keyboard enter key
-	$('.postButton').on('click', postIt);
-	$('.postInput').keypress(function (e) {
-	  if (e.which == 13) postIt();
-	});
-
-	// --------------------------------------------------------
 	var play = function(){
 			$('.headRight').text('PAUSE');
 			$('.headRight').removeClass('green');
@@ -43,11 +30,31 @@ $(document).ready(function(){
 			g.isPaused = true;	
 	}
 
-	// PAUSE/PLAY click event
 	$('.headRight').on('click', function(){ g.isPaused ? play() : pause(); });
 
 	// --------------------------------------------------------
+	// user's post event , button click or keyboard enter key
+
+	var postIt = function(){
+		var message = $('.postInput').val();
+		makePost(g.user, message);
+		$('.postInput').val('');
+		//g.currentUser = g.user;
+		play();
+	}
+
+	$('.postButton').on('click', postIt);
+	$('.postInput').keypress(function (e) {
+		if (e.which == 13) {
+			postIt();
+			play();
+		} 
+	});
+
+
+	// --------------------------------------------------------
 	// username click event
+
 	var userNameClicked = function(user){
 		if (g.currentUser) {
 			g.currentUser = null;
