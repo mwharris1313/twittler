@@ -124,10 +124,17 @@ body {
 }
 
 .segLeft {
+	float: left;
 	color: black;
+	width:162px;
+	padding: 0 10px 0 0;
+	text-align: right;
 }
 .segMiddle {
+	float: left;
 	color: blue;
+	width: 180px;
+	padding: 0 10px 0 0;
 }
 .segRight {
 	color: green;
