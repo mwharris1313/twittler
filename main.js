@@ -14,7 +14,17 @@ $(document).ready(function(){
 		g.isPaused = !g.isPaused;
 	});
 
-	setInterval(checkTweets, 500, {amount:0, user:'billy', isTimeFriendly:false});
+	$('.segmentWrapper').on('click', function(e){
+		var thisClass = $(e.target).attr('class');
+
+		var test = '';
+		if (thisClass === 'segLeft') test = 'left';
+		if (thisClass === 'segMiddle') test = 'middle';
+		if (thisClass === 'segRight') test = 'right';
+		log(test);
+	});
+
+	setInterval(checkTweets, 200, {amount:0, user:'billy', isTimeFriendly:false});
 
 
 });
