@@ -67,7 +67,9 @@ $(document).ready(function(){
 				e.target.innerHTML.split(':')[0].split('@')[1];
 			checkPosts();
 		};
-		if (thisClass === 'segRight') test = 'right';
+		if (thisClass === 'segRight'){
+			//TODO: click on message puts post in top window
+		};
 	});
 
 });
