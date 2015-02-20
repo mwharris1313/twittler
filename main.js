@@ -57,7 +57,8 @@ $(document).ready(function(){
 
 		var test = '';
 		if (thisClass === 'segLeft') {
-
+			g.isTimeFriendly = !g.isTimeFriendly;
+			checkPosts();
 		};
 
 		if (thisClass === 'segMiddle') {
