@@ -15,7 +15,18 @@ $(document).ready(function(){
 	setInterval(checkPosts, g.checkInterval, {user:'billy', isTimeFriendly:false});
 
 	$('.headRight').on('click', function(){
-		g.isPaused = !g.isPaused;
+		if (g.isPaused) {
+			$('.headRight').text('PAUSE');
+			$('.headRight').removeClass('green');
+			$('.headRight').addClass('red');
+			g.isPaused = false;
+			checkPosts();
+		} else {
+			$('.headRight').text('PLAY');
+			$('.headRight').removeClass('red');
+			$('.headRight').addClass('green');
+			g.isPaused = true;
+		}
 	});
 
 	var postIt = function(){
@@ -29,6 +40,16 @@ $(document).ready(function(){
 	$('.postButton').on('click', postIt);
 	$('.postInput').keypress(function (e) {
 	  if (e.which == 13) postIt();
+	});
+
+	$('.headLeft').on('click', function(e){
+		if (g.currentUser) {
+			g.currentUser = null;
+		} else {
+			var user = $(e.target).text().split('@')[1];
+			g.currentUser = user;
+		}
+ 		checkPosts();
 	});
 
 	$('.segmentWrapper').on('click', '.segment', function(e){
@@ -47,6 +68,7 @@ $(document).ready(function(){
 		};
 		if (thisClass === 'segRight') test = 'right';
 	});
+
 });
 
 var checkPosts = function(args){

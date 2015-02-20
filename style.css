@@ -17,6 +17,15 @@ body {
 }
 
 /* **************************************** */
+.green {
+	color: darkgreen;
+}
+
+.red {
+	color: darkred;
+}
+
+/* **************************************** */
 .fixed {
     display: block;
 	position: fixed;
@@ -71,7 +80,6 @@ body {
 
 .headRight {
 	float: right;
-	color: darkred;
 }
 
 .content {
