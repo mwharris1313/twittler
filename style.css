@@ -130,17 +130,20 @@ body {
 	float: left;
 	color: black;
 	width:162px;
-	padding: 0 0px 0 0;
+	padding: 0;
 	text-align: center;
 }
 .segMiddle {
 	float: left;
 	color: blue;
-	width: 180px;
-	padding: 0 0px 0 0;
+	width: 220px;
+	padding: 0;
 	text-align:center;
 }
 .segRight {
+	position:relative;
+	left:0px;
 	color: rgb(100,180,100);
 	font-weight: bold;
+	font-size:20px;
 }

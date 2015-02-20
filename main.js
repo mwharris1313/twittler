@@ -5,30 +5,15 @@ var g = {};
 g.isPaused = false;
 g.currentUser = null;
 g.isTimeFriendly = false;
-g.checkInterval = 5000;
+g.checkInterval = 4500;
 g.user = 'billy';
 
 $(document).ready(function(){
 
 	checkPosts();
-	//setInterval(checkTweets, 1000, {user:'billy', isTimeFriendly:true});
-	setInterval(checkPosts, g.checkInterval, {user:'billy', isTimeFriendly:false});
+	setInterval(checkPosts, g.checkInterval);
 
-	$('.headRight').on('click', function(){
-		if (g.isPaused) {
-			$('.headRight').text('PAUSE');
-			$('.headRight').removeClass('green');
-			$('.headRight').addClass('red');
-			g.isPaused = false;
-			checkPosts();
-		} else {
-			$('.headRight').text('PLAY');
-			$('.headRight').removeClass('red');
-			$('.headRight').addClass('green');
-			g.isPaused = true;
-		}
-	});
-
+	// --------------------------------------------------------
 	var postIt = function(){
 		var message = $('.postInput').val();
 		makePost(g.user, message);
@@ -37,19 +22,46 @@ $(document).ready(function(){
 		checkPosts();
 	}
 
+	// user's post event , button click or keyboard enter key
 	$('.postButton').on('click', postIt);
 	$('.postInput').keypress(function (e) {
 	  if (e.which == 13) postIt();
 	});
 
-	$('.headLeft').on('click', function(e){
+	// --------------------------------------------------------
+	var play = function(){
+			$('.headRight').text('PAUSE');
+			$('.headRight').removeClass('green');
+			$('.headRight').addClass('red');
+			g.isPaused = false;
+			checkPosts();		
+	}
+	var pause = function(){
+			$('.headRight').text('PLAY');
+			$('.headRight').removeClass('red');
+			$('.headRight').addClass('green');
+			g.isPaused = true;	
+	}
+
+	// PAUSE/PLAY click event
+	$('.headRight').on('click', function(){ g.isPaused ? play() : pause(); });
+
+	// --------------------------------------------------------
+	// username click event
+	var userNameClicked = function(user){
 		if (g.currentUser) {
 			g.currentUser = null;
+			play();
 		} else {
-			var user = $(e.target).text().split('@')[1];
 			g.currentUser = user;
+			checkPosts();
+			pause();
 		}
- 		checkPosts();
+	}
+
+	$('.headLeft').on('click', function(e){
+		var user = $(e.target).text().split('@')[1];
+		userNameClicked(user);
 	});
 
 	$('.segmentWrapper').on('click', '.segment', function(e){
@@ -62,15 +74,13 @@ $(document).ready(function(){
 		};
 
 		if (thisClass === 'segMiddle') {
-			g.isPaused = false;
-			g.currentUser = g.currentUser ? null : 
-				e.target.innerHTML.split(':')[0].split('@')[1];
-			checkPosts();
+			userNameClicked(e.target.innerHTML);
 		};
 		if (thisClass === 'segRight'){
 			//TODO: click on message puts post in top window
 		};
 	});
+	// --------------------------------------------------------
 
 });
 
@@ -100,7 +110,7 @@ var checkPosts = function(args){
 
 			var tag = $('<div class="segment"></div>');
 			var left = '<span class="segLeft">'+createdAt+'</span>';
-			var middle = '<span class="segMiddle">'+' @' + post.user+': </span>';
+			var middle = '<span class="segMiddle">'+post.user+'</span>';
 			var right = '<span class="segRight">'+post.message+'</span>';
 			tag.html(left+middle+right);
 			tag.appendTo(segmentWrapper);
