@@ -4,20 +4,21 @@ streams.users['billy'] = [];
 var g = {};
 g.isPaused = false;
 g.currentUser = null;
+g.isFriendly = false;
 
 $(document).ready(function(){
-	var msg = ['j0','a1','b2','c3','d4','e5','f6','g7','h8','i9'];
-	var billyTweet = function() { makeTweet( 'billy', msg[Math.floor(Math.random()*10)] ); };
-	setInterval(billyTweet, 2000);
+	var msg = ['a1','b2','c3','d4','e5','f6','g7','h8','i9','j10'];
+	var billyPost = function() { makePost( 'billy', msg[Math.floor(Math.random()*10)] ); };
+	setInterval(billyPost, 3000);
 
 	//setInterval(checkTweets, 1000, {user:'billy', isTimeFriendly:true});
-	setInterval(checkTweets, 200, {user:'billy', isTimeFriendly:false});
+	setInterval(checkMessages, 2000, {user:'billy', isTimeFriendly:false});
 
 	$('.headRight').on('click', function(){
 		g.isPaused = !g.isPaused;
 	});
 
-	$('.segmentWrapper').on('click', function(e){
+	$('.segmentWrapper').on('click', '.segment', function(e){
 		var thisClass = $(e.target).attr('class');
 		console.log(thisClass);
 
@@ -35,7 +36,7 @@ $(document).ready(function(){
 	});
 });
 
-var checkTweets = function(args){
+var checkMessages = function(args){
 	if (!g.isPaused){	
 
 		var amount 			= args.amount;
@@ -46,22 +47,20 @@ var checkTweets = function(args){
 		var segmentWrapper = $('.segmentWrapper');
 		segmentWrapper.html('');
 
-		var tweets = !user ? streams.home :
+		var messages = !user ? streams.home :
 			_.filter(streams.home, function(item){ return item.user === user; });
 
-		var len = tweets.length;
-		var maxTweets = len < amount ? len : amount;
 
-		for (var i = len-1; i >= 0; i--){
+		for (var i = messages.length-1; i >= 0; i--){
 
-			var tweet = tweets[i];
-			var createdAt = isTimeFriendly ? dateToFriendly(tweet.created_at) : 
-				dateToFull(tweet.created_at);
+			var message = messages[i];
+			var createdAt = isTimeFriendly ? dateToFriendly(message.created_at) : 
+				dateToFull(message.created_at);
 
 			var tag = $('<div class="segment"></div>');
 			var left = '<span class="segLeft">'+createdAt+'</span>';
-			var middle = '<span class="segMiddle">'+' @' + tweet.user+': </span>';
-			var right = '<span class="segRight">'+tweet.message+'</span>';
+			var middle = '<span class="segMiddle">'+' @' + message.user+': </span>';
+			var right = '<span class="segRight">'+message.message+'</span>';
 			tag.html(left+middle+right);
 			tag.appendTo(segmentWrapper);
 		}
@@ -69,10 +68,10 @@ var checkTweets = function(args){
 	}
 }
 
-var makeTweet = function(user, message){
-	var tweet = {};
-	tweet.user = user;
-	tweet.message = message;
-	tweet.created_at = new Date();
-	addTweet(tweet);
+var makePost = function(fUser, fPost){
+	var post = {};
+	post.user = fUser;
+	post.message = fPost;
+	post.created_at = new Date();
+	addTweet(post);
 };
