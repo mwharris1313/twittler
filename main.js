@@ -9,7 +9,9 @@ $(document).ready(function(){
 	var billyTweet = function() { makeTweet( 'billy', msg[Math.floor(Math.random()*10)] ); };
 	setInterval(billyTweet, 2000);
 
-	//setInterval(checkTweets, 1000, {amount:10, user:'billy', isTimeFriendly:true});
+	//setInterval(checkTweets, 1000, {user:'billy', isTimeFriendly:true});
+	setInterval(checkTweets, 200, {user:'billy', isTimeFriendly:false});
+
 	$('.headRight').on('click', function(){
 		g.isPaused = !g.isPaused;
 	});
@@ -23,9 +25,6 @@ $(document).ready(function(){
 		if (thisClass === 'segRight') test = 'right';
 		log(test);
 	});
-
-	setInterval(checkTweets, 200, {amount:0, user:'billy', isTimeFriendly:false});
-
 
 });
 
@@ -46,32 +45,18 @@ var checkTweets = function(args){
 		var len = tweets.length;
 		var maxTweets = len < amount ? len : amount;
 
-		if (amount !== 0){		
-			for (var i = len-1; i >= (len-maxTweets); i--){
+		for (var i = len-1; i >= 0; i--){
 
-				var tweet = tweets[i];
-				var createdAt = isTimeFriendly ? dateToFriendly(tweet.created_at) : 
-					dateToFull(tweet.created_at);
+			var tweet = tweets[i];
+			var createdAt = isTimeFriendly ? dateToFriendly(tweet.created_at) : 
+				dateToFull(tweet.created_at);
 
-				var tag = $('<div class="segment"></div>');
-				tag.text(createdAt +  ' @' + tweet.user + ': ' + tweet.message);
-				tag.appendTo(segmentWrapper);
-			}
-		} else {
-			for (var i = len-1; i >= 0; i--){
-
-				var tweet = tweets[i];
-				var createdAt = isTimeFriendly ? dateToFriendly(tweet.created_at) : 
-					dateToFull(tweet.created_at);
-
-				var tag = $('<div class="segment"></div>');
-				var left = '<span class="segLeft">'+createdAt+'</span>';
-				var middle = '<span class="segMiddle">'+' @' + tweet.user+': </span>';
-				var right = '<span class="segRight">'+tweet.message+'</span>';
-				tag.html(left+middle+right);
-				tag.appendTo(segmentWrapper);
-			}
-
+			var tag = $('<div class="segment"></div>');
+			var left = '<span class="segLeft">'+createdAt+'</span>';
+			var middle = '<span class="segMiddle">'+' @' + tweet.user+': </span>';
+			var right = '<span class="segRight">'+tweet.message+'</span>';
+			tag.html(left+middle+right);
+			tag.appendTo(segmentWrapper);
 		}
 
 	}

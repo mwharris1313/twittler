@@ -78,13 +78,13 @@ body {
 	top: 0px;
 	bottom: 0px;
 	left: 0px;
-	right: 0px;
-	margin: 10px;
-	overflow:scroll;
+	right: -25px;
+	margin: 10px 0 10px 0;
+	overflow:auto;
 }
 
 .segment {
-	margin: 10px;
+	margin: 0 20px 0 10px ;
 	white-space: nowrap;
 	overflow: hidden;
 }
