@@ -3,6 +3,7 @@ var log = console.log.bind(console);
 streams.users['billy'] = [];
 var g = {};
 g.isPaused = false;
+g.currentUser = null;
 
 $(document).ready(function(){
 	var msg = ['j0','a1','b2','c3','d4','e5','f6','g7','h8','i9'];
@@ -18,21 +19,27 @@ $(document).ready(function(){
 
 	$('.segmentWrapper').on('click', function(e){
 		var thisClass = $(e.target).attr('class');
+		console.log(thisClass);
 
 		var test = '';
-		if (thisClass === 'segLeft') test = 'left';
-		if (thisClass === 'segMiddle') test = 'middle';
-		if (thisClass === 'segRight') test = 'right';
-		log(test);
-	});
+		if (thisClass === 'segLeft') {
 
+		};
+
+		if (thisClass === 'segMiddle') {
+			g.isPaused = false;
+			g.currentUser = g.currentUser ? null : 
+				e.target.innerHTML.split(':')[0].split('@')[1];
+		};
+		if (thisClass === 'segRight') test = 'right';
+	});
 });
 
 var checkTweets = function(args){
 	if (!g.isPaused){	
 
 		var amount 			= args.amount;
-		var user			= args.users;
+		var user			= g.currentUser || args.users;
 		var isTimeFriendly	= args.isTimeFriendly;
 
 		var body = $('body');
