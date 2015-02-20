@@ -46,14 +46,21 @@ body {
 	position: absolute;
 	bottom: 0px;
 	margin: 0px;
-	width:800px;
+	width:960px;
 }
-.input{
+.postInput{
 	position: absolute;
 	bottom: 0px;
 	margin: 20px;
-	width: inherit;
+	width: 816px;
 	font-size:25px;
+}
+.postButton{
+	float: right;
+	right: 10px;
+	margin: 20px;
+	width: 80px;
+	font-size:26px;
 }
 	
 .headLeft {

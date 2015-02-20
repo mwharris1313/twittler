@@ -6,11 +6,9 @@ g.isPaused = false;
 g.currentUser = null;
 g.isTimeFriendly = false;
 g.checkInterval = 5000;
+g.user = 'billy';
 
 $(document).ready(function(){
-	var msg = ['a1','b2','c3','d4','e5','f6','g7','h8','i9','j10'];
-	var billyPost = function() { makePost( 'billy', msg[Math.floor(Math.random()*10)] ); };
-	setInterval(billyPost, 3000);
 
 	checkPosts();
 	//setInterval(checkTweets, 1000, {user:'billy', isTimeFriendly:true});
@@ -20,9 +18,21 @@ $(document).ready(function(){
 		g.isPaused = !g.isPaused;
 	});
 
+	var postIt = function(){
+		var message = $('.postInput').val();
+		makePost(g.user, message);
+		$('.postInput').val('');
+		//g.currentUser = g.user;
+		checkPosts();
+	}
+
+	$('.postButton').on('click', postIt);
+	$('.postInput').keypress(function (e) {
+	  if (e.which == 13) postIt();
+	});
+
 	$('.segmentWrapper').on('click', '.segment', function(e){
 		var thisClass = $(e.target).attr('class');
-		console.log(thisClass);
 
 		var test = '';
 		if (thisClass === 'segLeft') {
